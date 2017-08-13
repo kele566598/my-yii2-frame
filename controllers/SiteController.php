@@ -22,6 +22,6 @@ class SiteController extends BaseController
         $font_path = \Yii::$app->getBasePath() ."/web/common/captcha/fonts/captcha.ttf";
         $captcha_handle = new ValidateCode( $font_path );
         $captcha_handle->doimg();
-        $this->setCookie( Yii::$app->params['captcha_cookie_name'],$captcha_handle->getCode() );
+        $this->setCookie( Yii::$app->params['admin_img_captcha_name'],$captcha_handle->getCode() );
     }
 }

@@ -16,7 +16,14 @@ $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
+
+$fieldOptions3 = [
+    'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}",
+];
 ?>
+
+
 
 <div class="login-box">
     <div class="login-logo">
@@ -40,7 +47,10 @@ $fieldOptions2 = [
 
         <div class="form-group">
             <div class="row">
-                <div class="col-xs-7"><input type="text" name="code"  class="form-control" placeholder="请输入验证码"></div>
+                <div class="col-xs-7">
+                    <?= $form->field($model,'imgCaptcha',$fieldOptions3)->label(false)->textInput()?>
+
+                </div>
                 <div class="col-xs-4">
                     <img src="<?= \app\common\services\UrlService::buildWwwUrl('/site/img-captcha')?>" onclick="this.src='<?= \app\common\services\UrlService::buildWwwUrl('/site/img-captcha')?>?'+Math.random();">
                 </div>

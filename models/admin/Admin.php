@@ -74,6 +74,47 @@ class Admin extends \yii\db\ActiveRecord
             ];
     }
 
+    /**
+     * 设置密码
+     * @param $password
+     */
+    public function setPassword( $password ) {
+
+        $this->password = $this->getSaltPassword($password);
+    }
+
+    /**
+     * 设置密码随机加密秘钥
+     * @param int $length
+     */
+    public function setSalt( $length = 16 ){
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        $salt = '';
+        for ( $i = 0; $i < $length; $i++ ){
+            $salt .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+        }
+        $this->password_salt = $salt;
+    }
+
+    /**
+     * 生成加密密码
+     * @param $password
+     * @return string
+     */
+    public function getSaltPassword($password) {
+        return md5( $password.md5( $this->password_salt ) );
+    }
+
+    /**
+     * 验证密码
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password) {
+        return $this->password == $this->getSaltPassword($password);
+    }
+
+
     public function attributeLabels()
     {
         return [

@@ -9,5 +9,5 @@ return [
         'admin' => 'http://my-yii2-frame.xin/admin'
     ],
 
-    'captcha_cookie_name'=>'admin_captcha',
+    'admin_img_captcha_name'=>'admin_img_captcha',
 ];
