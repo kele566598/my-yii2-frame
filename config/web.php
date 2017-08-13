@@ -7,15 +7,20 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language'=>'zh-CN',
+    'sourceLanguage'=>'zh-CN',
+    'charset'=>'UTF-8',
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\AdminMoudule',
+        ],
+    ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'ab9167dd96e2cb25ddf78411598ad32c',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'error/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
