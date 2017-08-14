@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+
+use yii\widgets\ActiveForm;
+
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -9,17 +11,17 @@ $this->title = Yii::$app->params['adminTitle'];
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'template' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>{error}"
 ];
 
 $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+    'template' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>{error}"
 ];
 
 $fieldOptions3 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}",
+    'template' => "{input}{error}",
 ];
 ?>
 
@@ -48,7 +50,7 @@ $fieldOptions3 = [
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-7">
-                    <?= $form->field($model,'imgCaptcha',$fieldOptions3)->label(false)->textInput()?>
+                    <?= $form->field($model,'imgCaptcha',$fieldOptions3)->label(false)->textInput(['placeholder' => $model->getAttributeLabel('imgCaptcha')])?>
 
                 </div>
                 <div class="col-xs-4">

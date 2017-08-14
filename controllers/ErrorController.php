@@ -35,10 +35,21 @@ class ErrorController extends BaseController
                 "[url:{$_SERVER['REQUEST_URI']}][post:".http_build_query($_POST)."]";
 
             ApplogService::addErrorLog(Yii::$app->id,$err_msg);
+
+            $code = intval($code);
+            // 1 来自admin模块的错误，2 group模块的错误，3前台模块的错误
+            if( $code==1){
+                // 1.来自Admin模块的错误
+                $this->layout = '@app/modules/admin/views/layouts/main.php';
+                return $this->render("error",['code'=>$code,'msg'=>$msg]);
+            } else if($code==2){
+                // 2.来自group模块的错误
+            } else if($code==3){
+                // 3.来自前台模块的错误
+            }
         }
 
-        return $this->render("error",[
-            "err_msg" => $err_msg
-        ]);
+
+        return $this->renderPartial('404');
     }
 }

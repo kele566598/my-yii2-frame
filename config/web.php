@@ -40,6 +40,35 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => require(__DIR__.'/router.php'),
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'js' => [
+                        '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js',
+                    ]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'css' => [
+                        '//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css',
+                    ]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'sourcePath' => null,
+                    'js' => [
+                        '//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js',
+                    ]
+                ],
+                'yii\bootstrap\BootstrapThemeAsset' => [
+                    'sourcePath' => null,
+                    'css' => [
+                        '//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css',
+                    ]
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];

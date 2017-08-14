@@ -4,7 +4,7 @@ namespace app\common\services\applog;
 
 use app\common\services\UtilService;
 use app\models\log\AppAccessLog;
-use app\models\log\AppLog;
+use app\models\log\AppErrorLog;
 use Yii;
 
 class ApplogService {
@@ -13,9 +13,12 @@ class ApplogService {
 
         $error = Yii::$app->errorHandler->exception;
 
-        $model_app_logs = new AppLog();
+        $model_app_logs = new AppErrorLog();
         $model_app_logs->app_name = $appname;
         $model_app_logs->content = $content;
+
+        $url = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : '';
+        $model_app_logs->url = substr($url,0,200);
 
 
         $model_app_logs->ip = UtilService::getIP();

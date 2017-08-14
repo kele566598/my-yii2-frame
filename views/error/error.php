@@ -7,10 +7,9 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = '错误提示！';
 ?>
-<div class="site-error">
 
-    <?= $err_msg ?>
-
+<div class="error-page">
+    <h2 class="headline"> <?=$msg?></h2>
 </div>

@@ -28,8 +28,6 @@ class Admin extends \yii\db\ActiveRecord
     const GENDER_WOMAN = '2';
     const GENDER_SECRET = '0';
 
-    public $password;
-
     private static $_statusList;
     private static $_genderList;
 

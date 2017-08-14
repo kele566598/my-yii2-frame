@@ -36,24 +36,30 @@ class LoginForm extends Model
         if(!$img_captcha_cookie){
             $this->addError('imgCaptcha','验证码错误~');
         }
-        if(strtolower($img_captcha_cookie) != $this->imgCaptcha){
+        if(strtolower($img_captcha_cookie) != strtolower($this->imgCaptcha)){
             $this->addError('imgCaptcha','验证码错误~');
         }
+        $this->imgCaptcha = '';
         return true;
     }
 
     public function validatePassword(){
         if (!$this->hasErrors()) {
             $admin = Admin::find()->where(['username'=>$this->username])->one();
+
             if(!$admin){
                 $this->addError('username','用户名错误~');
+                return false;
             }
+
             if(!$admin->validatePassword( $this->password )){
                 $this->addError('username','密码错误~');
+                return false;
             }
 
             if ($admin->status == Admin::STATUS_BLOCKED){
                 $this->addError('username','账户已被锁定，请联系管理员~');
+                return false;
             }
         }
         return true;

@@ -5,10 +5,7 @@ namespace app\assets;
 use app\common\services\UrlService;
 use yii\web\AssetBundle;
 
-/**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
- */
+
 class AdminLteAsset extends AssetBundle
 {
     public $basePath = '@webroot';
@@ -18,9 +15,13 @@ class AdminLteAsset extends AssetBundle
 
     public $js = [];
 
-    public $depends = [];
+    public $depends = [
+        'yii\web\YiiAsset',
+        //'yii\bootstrap\BootstrapAsset',
+    ];
 
     public function registerAssetFiles( $view ){
+
         //加一个版本号,目的 ： 是浏览器获取最新的css 和 js 文件
         $release_version = defined("RELEASE_VERSION")?RELEASE_VERSION:time();
         $this->css = [
