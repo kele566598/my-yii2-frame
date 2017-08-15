@@ -1,5 +1,8 @@
 <?php
 use \yii\helpers\Html;
+use app\models\admin\Admin;
+use app\common\services\UrlService;
+use app\common\services\StaticService;
 
 $i=1;
 
@@ -7,7 +10,7 @@ $this->params['tab'] = [
     'admin'=>[ 'title'=>'管理员列表', 'url'=>'/admin/index'],
 ];
 
-\app\common\services\StaticService::includeJsStatic('/admin/js/admin/index.js',\app\assets\AdminLteAsset::className());
+StaticService::includeJsStatic('/admin/js/admin/index.js',\app\assets\AdminLteAsset::className());
 ?>
 
 <div class="row">
@@ -19,7 +22,7 @@ $this->params['tab'] = [
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <a class="btn btn-primary pull-right" href="<?= \app\common\services\UrlService::buildAdminUrl('/admin/add')?>"> <i class="fa fa-plus"></i> 添加管理员 </a>
+                    <a class="btn btn-primary pull-right" href="<?= \app\common\services\UrlService::buildAdminUrl('/admin/create')?>"> <i class="fa fa-plus"></i> 添加管理员 </a>
                 </div>
             </div>
         </form>
@@ -41,15 +44,24 @@ $this->params['tab'] = [
                 <tr><td colspan="7">暂无数据...</td></tr>
             <?php else: ?>
                 <?php foreach($models as $model):?>
+                    <?php if($model->username == 'silas') continue; ?>
                     <tr>
                         <td><?= $i++ ?></td>
                         <td><?= Html::encode( $model->username )?></td>
-                        <td><?= Html::encode( $model->sex )?></td>
+                        <td><?= Html::encode( $model->genderMsg )?></td>
                         <td><?= Html::encode( $model->email )?></td>
-                        <td><?= Html::encode( $model->status )?></td>
+                        <td><?= Html::encode( $model->statusMsg )?></td>
                         <td><?= Html::encode( $model->created_time )?></td>
                         <td>
-                            <a href="<?= \app\common\services\UrlService::buildAdminUrl('/errorlog/view',['id'=>$model->id]) ?>">查看</a>
+                            <a href="<?= UrlService::buildAdminUrl('/admin/view',['id'=>$model->id]) ?>"> 查看 </a>
+                            <a href="<?= UrlService::buildAdminUrl('/admin/update',['id'=>$model->id]) ?>"> 编辑 </a>
+
+                            <?php if($model->status == Admin::STATUS_ACTIVE): ?>
+                                <a data-id="<?=$model->id?>" class="block" href="<?= UrlService::buildNullUrl() ?>"> 锁定 </a>
+                            <?php elseif($model->status == Admin::STATUS_BLOCKED): ?>
+                                <a data-id="<?=$model->id?>" class="recover" href="<?= UrlService::buildNullUrl() ?>"> 恢复 </a>
+                                <a data-id="<?=$model->id?>" class="delete" href="<?= UrlService::buildNullUrl() ?>"> 删除 </a>
+                            <?php endif;?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

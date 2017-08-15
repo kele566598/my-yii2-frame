@@ -48,12 +48,12 @@ class LoginForm extends Model
             $admin = Admin::find()->where(['username'=>$this->username])->one();
 
             if(!$admin){
-                $this->addError('username','用户名错误~');
+                $this->addError('username','用户名或密码错误~');
                 return false;
             }
 
             if(!$admin->validatePassword( $this->password )){
-                $this->addError('username','密码错误~');
+                $this->addError('username','用户名或密码错误~');
                 return false;
             }
 

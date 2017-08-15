@@ -22,10 +22,14 @@ a,a:hover{
   border-bottom: 1px solid #e7eaec !important;
 }
 
-.content-header{
+.skin-blue .content-header{
   padding: 0;
+  height: 48px;
 }
 
+.table td a{
+  padding: 0 3px;
+}
 
 
 .tab_title .nav > li > a{

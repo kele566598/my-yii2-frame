@@ -51,9 +51,7 @@ $config = [
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'sourcePath' => null,
-                    'css' => [
-                        '//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css',
-                    ]
+                    'css' => [],
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'sourcePath' => null,

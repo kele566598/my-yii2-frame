@@ -3,7 +3,7 @@
 namespace app\common\services\applog;
 
 use app\common\services\UtilService;
-use app\models\log\AppAccessLog;
+use app\models\log\AdminAccessLog;
 use app\models\log\AppErrorLog;
 use Yii;
 
@@ -44,7 +44,7 @@ class ApplogService {
         $model_app_logs->save(0);
     }
 
-	public static function addAppLog( $uid = 0 ){
+	public static function addAdminLog( $uid = 0 ){
 
 		$get_params = \Yii::$app->request->get();
 		$post_params = \Yii::$app->request->post();
@@ -58,7 +58,7 @@ class ApplogService {
 		$referer = Yii::$app->request->getReferrer();
 		$ua = Yii::$app->request->getUserAgent();
 
-		$access_log = new AppAccessLog();
+		$access_log = new AdminAccessLog();
 		$access_log->uid = $uid;
 		$access_log->referer_url = $referer?$referer:'';
 		$access_log->target_url = $target_url;

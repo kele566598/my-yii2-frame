@@ -12,7 +12,7 @@ use Yii;
  * @property string $password
  * @property string $password_salt
  * @property string $nickname
- * @property integer $sex
+ * @property integer $gender
  * @property integer $status
  * @property string $email
  * @property string $mobile
@@ -42,7 +42,7 @@ class Admin extends \yii\db\ActiveRecord
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'string', 'min' => 4, 'max' => 20],
-            ['username', 'match', 'pattern' => '/^[A-Za-z_-][A-Za-z0-9_-]+$/'],
+            ['username', 'match', 'pattern' => '/^[A-Za-z_-][A-Za-z0-9_-]+$/','message'=>'用户名必需以字母或下划线开头~'],
             ['username', 'unique', 'message' => '该用户名已被使用'],
 
             ['nickname', 'filter', 'filter' => 'trim'],
@@ -53,23 +53,32 @@ class Admin extends \yii\db\ActiveRecord
             ['email', 'required'],
             ['email', 'email'],
 
-            [['password'], 'required'],
-            [['password'], 'string', 'min' => 6, 'max' => 24],
-            [['password'], 'match', 'pattern' => '/^\S+$/'],
+            ['password', 'filter', 'filter' => 'trim'],
+            ['password', 'required','on'=>'create'],
+            ['password', 'string', 'min' => 6, 'max' => 24],
+            ['password', 'match', 'pattern' => '/^\S+$/'],
 
             ['gender', 'default', 'value' => self::GENDER_SECRET],
             ['gender', 'in', 'range' => [self::GENDER_MALE, self::GENDER_WOMAN, self::GENDER_SECRET]],
 
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [ self::STATUS_ACTIVE, self::STATUS_BLOCKED ]],
+
+            ['mobile', 'filter', 'filter' => 'trim'],
             ['mobile', 'required'],
-            ['mobile', 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/'],
+            ['mobile', 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message'=>'手机号格式不正确~'],
         ];
     }
 
     public function scenarios()
     {
         return [
-            'view' => ['username', 'password'],
-            ];
+            'default' => ['username','password','nickname','gender','email','mobile','status'],
+            'create' => ['username','password','nickname','gender','email','mobile'],
+            'update'=> ['password','nickname','email','gender','mobile'],
+            'status'=>['status'],
+            //'search'=>['username', 'nickname', 'mobile', 'status','date'],
+        ];
     }
 
     /**
@@ -112,7 +121,6 @@ class Admin extends \yii\db\ActiveRecord
         return $this->password == $this->getSaltPassword($password);
     }
 
-
     public function attributeLabels()
     {
         return [
@@ -121,11 +129,11 @@ class Admin extends \yii\db\ActiveRecord
             'password' => '登录密码',
             'password_salt' => '登录密码的随机加密秘钥',
             'nickname' => '昵称',
-            'sex' => '性别',
+            'gender' => '性别',
             'status' => '状态',
             'email' => '邮箱',
             'mobile' => '手机',
-            'created_time' => '插入时间',
+            'created_time' => '添加时间',
             'updated_time' => '更新时间',
         ];
     }
@@ -134,9 +142,9 @@ class Admin extends \yii\db\ActiveRecord
     {
         if (self::$_genderList === null) {
             self::$_genderList = [
+                self::GENDER_SECRET => '保密',
                 self::GENDER_MALE => '男',
                 self::GENDER_WOMAN => '女',
-                self::GENDER_OTHER => '保密'
             ];
         }
 

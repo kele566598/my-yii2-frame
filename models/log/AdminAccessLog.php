@@ -5,7 +5,7 @@ namespace app\models\log;
 use Yii;
 
 /**
- * This is the model class for table "app_access_log".
+ * This is the model class for table "admin_access_log".
  *
  * @property integer $id
  * @property integer $uid
@@ -17,14 +17,14 @@ use Yii;
  * @property string $note
  * @property string $created_time
  */
-class AppAccessLog extends \yii\db\ActiveRecord
+class AdminAccessLog extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'app_access_log';
+        return 'admin_access_log';
     }
 
     /**

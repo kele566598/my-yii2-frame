@@ -12,6 +12,7 @@ use app\models\admin\Admin;
 use Yii;
 use app\common\components\BaseController;
 use app\common\services\UrlService;
+use app\common\services\applog\ApplogService;
 
 class BaseAdminController extends BaseController
 {
@@ -39,7 +40,7 @@ class BaseAdminController extends BaseController
             return false;
         }
 
-        //ApplogService::addAppLog( $this->current_user['uid'] );
+        ApplogService::addAdminLog( $this->current_user['id'] );
         return true;
     }
 
@@ -91,6 +92,14 @@ class BaseAdminController extends BaseController
 
     public function getUid(){
         return $this->current_user?$this->current_user['id']:0;
+    }
+
+    public function alertSuccess( $msg ){
+        Yii::$app->session->setFlash('success', $msg);
+    }
+
+    public function alertFail( $msg ){
+        Yii::$app->session->setFlash('danger', $msg);
     }
 
 }

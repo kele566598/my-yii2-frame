@@ -15,4 +15,5 @@ return [
 
     'admin_img_captcha_name'=>'admin_img_captcha',
     'admin_auth_token'=>'admin_auth_token',
+
 ];

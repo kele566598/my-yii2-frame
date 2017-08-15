@@ -36,7 +36,7 @@ class ErrorController extends BaseController
 
             ApplogService::addErrorLog(Yii::$app->id,$err_msg);
 
-            $code = intval($code);
+/*            $code = intval($code);
             // 1 来自admin模块的错误，2 group模块的错误，3前台模块的错误
             if( $code==1){
                 // 1.来自Admin模块的错误
@@ -46,7 +46,7 @@ class ErrorController extends BaseController
                 // 2.来自group模块的错误
             } else if($code==3){
                 // 3.来自前台模块的错误
-            }
+            }*/
         }
 
 
