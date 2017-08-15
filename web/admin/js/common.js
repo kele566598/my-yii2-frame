@@ -20,6 +20,18 @@ var common_ops = {
         return url + _paramUrl
 
     },
+    buildGroupUrl:function( path ,params){
+        var url =   "/group" + path;
+        var _paramUrl = '';
+        if( params ){
+            _paramUrl = Object.keys(params).map(function(k) {
+                return [encodeURIComponent(k), encodeURIComponent(params[k])].join("=");
+            }).join('&');
+            _paramUrl = "?"+_paramUrl;
+        }
+        return url + _paramUrl
+
+    },
     buildPicUrl:function( bucket,img_key ){
         var upload_config = eval( '(' + $(".hidden_layout_warp input[name=upload_config]").val() +')' );
         var domain = "http://" + window.location.hostname;

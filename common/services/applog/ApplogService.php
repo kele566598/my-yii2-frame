@@ -5,6 +5,7 @@ namespace app\common\services\applog;
 use app\common\services\UtilService;
 use app\models\log\AdminAccessLog;
 use app\models\log\AppErrorLog;
+use app\models\log\MemberAccessLog;
 use Yii;
 
 class ApplogService {
@@ -68,4 +69,29 @@ class ApplogService {
 		$access_log->created_time = date("Y-m-d H:i:s");
 		return $access_log->save(0);
 	}
+
+    public static function addMemberLog( $uid = 0 ){
+
+        $get_params = \Yii::$app->request->get();
+        $post_params = \Yii::$app->request->post();
+        if( isset( $post_params['summary'] ) ){
+            unset( $post_params['summary'] );
+        }
+
+
+        $target_url = isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'';
+
+        $referer = Yii::$app->request->getReferrer();
+        $ua = Yii::$app->request->getUserAgent();
+
+        $access_log = new MemberAccessLog();
+        $access_log->uid = $uid;
+        $access_log->referer_url = $referer?$referer:'';
+        $access_log->target_url = $target_url;
+        $access_log->query_params = json_encode(array_merge($get_params,$post_params));
+        $access_log->ua = $ua?$ua:'';
+        $access_log->ip = UtilService::getIP();
+        $access_log->created_time = date("Y-m-d H:i:s");
+        return $access_log->save(0);
+    }
 } 

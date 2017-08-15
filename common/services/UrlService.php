@@ -31,6 +31,12 @@ class UrlService {
 		return $domain_config['admin'] .$path;
 	}
 
+    public static function buildGroupUrl( $path,$params = [] ){
+        $domain_config = \Yii::$app->params['domain'];
+        $path = Url::toRoute(array_merge([ $path ],$params));
+        return $domain_config['group'] .$path;
+    }
+
     /**
      * 根地址
      * @param $path

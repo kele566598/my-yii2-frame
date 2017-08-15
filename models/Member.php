@@ -60,7 +60,7 @@ class Member extends \yii\db\ActiveRecord
             ['email', 'email'],
 
             ['password', 'filter', 'filter' => 'trim'],
-            ['password', 'required','on'=>'create'],
+            ['password', 'required','on'=>['create','group-create']],
             ['password', 'string', 'min' => 6, 'max' => 24],
             ['password', 'match', 'pattern' => '/^\S+$/'],
 
@@ -84,6 +84,8 @@ class Member extends \yii\db\ActiveRecord
         return [
             'create' => ['username','password','nickname','gender','email','mobile','role'],
             'update'=> ['password','nickname','email','gender','mobile','role'],
+            'group-create' => ['username','password','nickname','gender','email','mobile'],
+            'group-update'=> ['password','nickname','email','gender','mobile'],
             'status'=>['status'],
         ];
     }
