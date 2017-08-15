@@ -14,6 +14,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\AdminMoudule',
         ],
+        'group' => [
+            'class' => 'app\modules\group\GroupMoudule',
+        ],
     ],
     'components' => [
         'request' => [

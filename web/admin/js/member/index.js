@@ -1,5 +1,5 @@
 ;
-var admin_index_ops = {
+var member_index_ops = {
     init:function(){
         this.eventBind();
     },
@@ -21,7 +21,7 @@ var admin_index_ops = {
         var callback = {
             'ok':function(){
                 $.ajax({
-                    url:common_ops.buildAdminUrl("/admin/ops"),
+                    url:common_ops.buildAdminUrl("/member/ops"),
                     type:'POST',
                     data:{
                         act:act,
@@ -50,5 +50,5 @@ var admin_index_ops = {
 };
 
 $(document).ready( function(){
-    admin_index_ops.init();
+    member_index_ops.init();
 });

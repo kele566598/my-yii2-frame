@@ -4,7 +4,7 @@ return [
     'companyName' => '哈尔滨市云轻科技有限公司',
     'companyUrl' => 'http://www.lappcloud.com/',
 
-    'adminTitle'=>'666管理后台',
+    'adminTitle'=>'管理后台',
 
 
     'domain' => [
